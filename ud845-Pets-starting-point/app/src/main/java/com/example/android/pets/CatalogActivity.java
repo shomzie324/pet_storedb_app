@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
+import com.example.android.pets.data.PetContract;
 import com.example.android.pets.data.PetContract.PetEntry;
 import com.example.android.pets.data.PetDbHelper;
 
@@ -57,8 +58,6 @@ public class CatalogActivity extends AppCompatActivity {
         // and pass the context, which is the current activity.
         //PetDbHelper mDbHelper = new PetDbHelper(this);
 
-        // Create and/or open a database to read from it
-        SQLiteDatabase db = mDbHelper.getReadableDatabase();
 
         // Create any variables needed for db query and create cursor object to hold query result set
        String[] projection = {
@@ -69,7 +68,9 @@ public class CatalogActivity extends AppCompatActivity {
          PetEntry.COLUMN_PET_WEIGHT
        };
 
-        Cursor cursor = db.query(PetEntry.TABLE_NAME,projection,null,null,null, null, null);
+       // Cursor cursor = db.query(PetEntry.TABLE_NAME,projection,null,null,null, null, null);
+
+       Cursor cursor = getContentResolver().query(PetEntry.CONTENT_URI,projection,null,null,null);
 
         try {
             // Display the number of rows in the Cursor (which reflects the number of rows in the
